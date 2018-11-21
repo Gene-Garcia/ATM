@@ -1,14 +1,15 @@
-package atm;
+package login;
 
+import register.Register;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * 
  * @author Gene Garcia
  */
 public class Login extends javax.swing.JFrame {
@@ -56,10 +57,10 @@ public class Login extends javax.swing.JFrame {
 
             sqlCommand = "SELECT CARD_NUMBER FROM APP.CUSTOMER_DATA WHERE CARD_NUMBER = " + cardNum;
             rsData = sCommand.executeQuery(sqlCommand);
-            
-            if(rsData.next()){
+
+            if (rsData.next()) {
                 return true;
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "No account matched!");
             }
 
@@ -87,7 +88,6 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(510, 335));
-        setPreferredSize(new java.awt.Dimension(493, 390));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -181,18 +181,16 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCardNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardNumberActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCardNumberActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
         this.dispose();
         reg = new Register(connect);
         reg.show();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
-        // TODO add your handling code here:
         try {
 
             if (!(txtCardNumber.getText().equals(""))) {
@@ -218,25 +216,17 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // Get the size of the screen
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-        // Determine the new location of the window
         int w = this.getSize().width;
         int h = this.getSize().height;
         int x = (dim.width - w) / 2;
         int y = (dim.height - h) / 2;
 
-        // Move the window
         this.setLocation(x, y);
     }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -253,9 +243,7 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
