@@ -1,5 +1,7 @@
 package atm;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,93 +15,59 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        buttonGroup1.add(rdbCardNumber);
-        buttonGroup1.add(rdbPin);
         connectToDatabase();
     }
 
+    public Login(Connection con) {
+        initComponents();
+        connect = con;
+        connectToDatabase();
+
+    }
+
     //  USER DEFINED --------------------------------------
+    //classes
+    Register reg;
+
     Connection connect;
     Statement sCommand;
     ResultSet rsData;
 
-    final String HOST = "jdbc:derby://localhost:1527/LEZNED";
-    final String USERNAME = "Lezned";
-    final String PASSWORD = "Kimi";
     String sqlCommand = "";
 
     public void connectToDatabase() {
 
         try {
 
-            connect = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
             sCommand = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            sqlCommand = "SELECT * FROM APP.CUSTOMER_DATA";
+            sqlCommand = "SELECT CARD_NUMBER FROM APP.CUSTOMER_DATA";
             rsData = sCommand.executeQuery(sqlCommand);
-
-            displayTable();
+            rsData.next();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage() + " at " + HOST);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }
 
-    public boolean checkAccount(int cardNum, int pin) {
+    public boolean checkAccount(int cardNum) {
 
         try {
 
-            rsData.first();
-            do {
-
-                if (rsData.getInt("CARD_NUMBER") == cardNum && rsData.getInt("PIN") == pin) {
-                    JOptionPane.showMessageDialog(null, "Your Input: " + cardNum + " " + pin + "\n is equal to " + rsData.getString("CARD_NUMBER") + " " + rsData.getInt("PIN"));
-                    return true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error");
-                }
-
-            } while (rsData.next());
+            sqlCommand = "SELECT CARD_NUMBER FROM APP.CUSTOMER_DATA WHERE CARD_NUMBER = " + cardNum;
+            rsData = sCommand.executeQuery(sqlCommand);
+            
+            if(rsData.next()){
+                return true;
+            }else {
+                JOptionPane.showMessageDialog(null, "No account matched!");
+            }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage() + " at " + HOST);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
         return false;
-    }
-
-    //for qa only
-
-    public void displayTable() {
-        try {
-            while (rsData.next()) {
-                System.out.println(rsData.getInt("CARD_NUMBER"));
-                System.out.println(rsData.getInt("PIN"));
-                System.out.println(rsData.getInt("OUTSTANDING_BALANCE"));
-                System.out.println(rsData.getString("NAME"));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage() + " at " + HOST);
-        }
-
-    }
-
-    final int CHOSEN_AREA_CARD_NUMBER = 0;
-    final int CHOSEN_AREA_PIN = 1;
-    int areaChosen;
-    boolean userChoseFieldForInput = false;
-
-    public void setAreasFromNumPad(String num) {
-        if (userChoseFieldForInput) {
-            switch (areaChosen) {
-                case CHOSEN_AREA_CARD_NUMBER:
-                    txtCardNumber.setText(txtCardNumber.getText() + num);
-                    break;
-                case CHOSEN_AREA_PIN:
-                    txtPin.setText(txtPin.getText() + num);
-                    break;
-            }
-        }
     }
 
     // END USER DEFINED -----------------------------------
@@ -108,37 +76,27 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel1 = new javax.swing.JPanel();
+        pnlInput = new javax.swing.JPanel();
         txtCardNumber = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtPin = new javax.swing.JPasswordField();
-        jPanel3 = new javax.swing.JPanel();
-        btn0 = new javax.swing.JButton();
-        btn1 = new javax.swing.JButton();
-        btn2 = new javax.swing.JButton();
-        btn3 = new javax.swing.JButton();
-        btn4 = new javax.swing.JButton();
-        btn5 = new javax.swing.JButton();
-        btn6 = new javax.swing.JButton();
-        btn7 = new javax.swing.JButton();
-        btn8 = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btn9 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        rdbCardNumber = new javax.swing.JRadioButton();
-        rdbPin = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
+        lnlCardNo = new javax.swing.JLabel();
+        btnClear = new javax.swing.JButton();
+        pnlButton = new javax.swing.JPanel();
         btnEnter = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setMinimumSize(new java.awt.Dimension(510, 335));
+        setPreferredSize(new java.awt.Dimension(493, 390));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pnlInput.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        txtCardNumber.setEditable(false);
         txtCardNumber.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtCardNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCardNumber.addActionListener(new java.awt.event.ActionListener() {
@@ -147,201 +105,48 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
-        jLabel1.setText("Card Number");
+        lnlCardNo.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
+        lnlCardNo.setText("Card Number");
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
-        jLabel2.setText("Pin");
-
-        txtPin.setEditable(false);
-        txtPin.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        txtPin.setVerifyInputWhenFocusTarget(false);
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btn0.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn0.setText("0");
-        btn0.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn0ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn0, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 55, 55));
-
-        btn1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn1.setText("1");
-        btn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 55, 55));
-
-        btn2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn2.setText("2");
-        btn2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn2ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 55, 55));
-
-        btn3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn3.setText("3");
-        btn3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn3ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 55, 55));
-
-        btn4.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn4.setText("4");
-        btn4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn4ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 55, 55));
-
-        btn5.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn5.setText("5");
-        btn5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn5ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 55, 55));
-
-        btn6.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn6.setText("6");
-        btn6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn6ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 55, 55));
-
-        btn7.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn7.setText("7");
-        btn7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn7ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 55, 55));
-
-        btn8.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn8.setText("8");
-        btn8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn8ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 55, 55));
-
-        btnDelete.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        btnDelete.setText("<");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 55, 55));
-
-        btn9.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 24)); // NOI18N
-        btn9.setText("9");
-        btn9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn9ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btn9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 55, 55));
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Choose A Field"));
-
-        rdbCardNumber.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
-        rdbCardNumber.setText("Card Number");
-        rdbCardNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbCardNumberActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
-        rdbPin.setFont(new java.awt.Font("Yu Gothic Medium", 0, 14)); // NOI18N
-        rdbPin.setText("Pin");
-        rdbPin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbPinActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(rdbCardNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                    .addComponent(rdbPin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlInputLayout = new javax.swing.GroupLayout(pnlInput);
+        pnlInput.setLayout(pnlInputLayout);
+        pnlInputLayout.setHorizontalGroup(
+            pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInputLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlInputLayout.createSequentialGroup()
+                        .addComponent(lnlCardNo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(rdbCardNumber)
+        pnlInputLayout.setVerticalGroup(
+            pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlInputLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lnlCardNo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rdbPin)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCardNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                            .addComponent(txtPin))))
-                .addGap(26, 26, 26))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtCardNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(pnlInput);
+        pnlInput.setBounds(30, 130, 430, 120);
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 420, 400));
-
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlButton.setLayout(null);
 
         btnEnter.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         btnEnter.setText("Enter");
@@ -350,6 +155,8 @@ public class Login extends javax.swing.JFrame {
                 btnEnterActionPerformed(evt);
             }
         });
+        pnlButton.add(btnEnter);
+        btnEnter.setBounds(133, 8, 107, 40);
 
         btnRegister.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         btnRegister.setText("Register");
@@ -358,34 +165,17 @@ public class Login extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
+        pnlButton.add(btnRegister);
+        btnRegister.setBounds(8, 8, 107, 40);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 490, -1, -1));
+        getContentPane().add(pnlButton);
+        pnlButton.setBounds(210, 270, 248, 56);
 
         jLabel3.setFont(new java.awt.Font("Ebrima", 0, 36)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("HUMAN ATM KACHING!");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 420, -1));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(10, 20, 470, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -396,24 +186,24 @@ public class Login extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        this.hide();
+        this.dispose();
+        reg = new Register(connect);
+        reg.show();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // TODO add your handling code here:
         try {
 
-            if (!(txtCardNumber.getText().equals("") || txtPin.equals(""))) {
+            if (!(txtCardNumber.getText().equals(""))) {
                 //textAreas not empty
 
-                boolean accountMatch = checkAccount(Integer.parseInt(txtCardNumber.getText()), Integer.parseInt(txtPin.getText()));
+                boolean accountMatch = checkAccount(Integer.parseInt(txtCardNumber.getText()));
 
                 if (accountMatch) {
                     //go to proccessing
-                    JOptionPane.showMessageDialog(null, "Correct");
+                    JOptionPane.showMessageDialog(null, "Account found!");
                     //call transaction (row, cardnum)
-                } else {
-                    JOptionPane.showMessageDialog(null, "Wrong");
                 }
 
             }
@@ -423,81 +213,23 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEnterActionPerformed
 
-    private void rdbCardNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbCardNumberActionPerformed
-        areaChosen = CHOSEN_AREA_CARD_NUMBER;
-        userChoseFieldForInput = true;
-    }//GEN-LAST:event_rdbCardNumberActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtCardNumber.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
-    private void rdbPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbPinActionPerformed
-        // TODO add your handling code here:
-        areaChosen = CHOSEN_AREA_PIN;
-        userChoseFieldForInput = true;
-    }//GEN-LAST:event_rdbPinActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // Get the size of the screen
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("1");
-    }//GEN-LAST:event_btn1ActionPerformed
+        // Determine the new location of the window
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
 
-    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("2");
-    }//GEN-LAST:event_btn2ActionPerformed
-
-    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("3");
-    }//GEN-LAST:event_btn3ActionPerformed
-
-    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("4");
-    }//GEN-LAST:event_btn4ActionPerformed
-
-    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("5");
-    }//GEN-LAST:event_btn5ActionPerformed
-
-    private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("6");
-    }//GEN-LAST:event_btn6ActionPerformed
-
-    private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("7");
-    }//GEN-LAST:event_btn7ActionPerformed
-
-    private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("8");
-    }//GEN-LAST:event_btn8ActionPerformed
-
-    private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("9");
-    }//GEN-LAST:event_btn9ActionPerformed
-
-    private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
-        // TODO add your handling code here:
-        setAreasFromNumPad("0");
-    }//GEN-LAST:event_btn0ActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        
-        switch(areaChosen){
-            case CHOSEN_AREA_CARD_NUMBER:
-                break;
-            case CHOSEN_AREA_PIN:
-                break;
-        }
-        
-        int count = txtCardNumber.getText().length();
-        String oldContent = txtCardNumber.getText().substring(0, count - 1);
-        txtCardNumber.setText(oldContent);
-    }//GEN-LAST:event_btnDeleteActionPerformed
+        // Move the window
+        this.setLocation(x, y);
+    }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -532,30 +264,14 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn0;
-    private javax.swing.JButton btn1;
-    private javax.swing.JButton btn2;
-    private javax.swing.JButton btn3;
-    private javax.swing.JButton btn4;
-    private javax.swing.JButton btn5;
-    private javax.swing.JButton btn6;
-    private javax.swing.JButton btn7;
-    private javax.swing.JButton btn8;
-    private javax.swing.JButton btn9;
-    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnRegister;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton rdbCardNumber;
-    private javax.swing.JRadioButton rdbPin;
+    private javax.swing.JLabel lnlCardNo;
+    private javax.swing.JPanel pnlButton;
+    private javax.swing.JPanel pnlInput;
     private javax.swing.JTextField txtCardNumber;
-    private javax.swing.JPasswordField txtPin;
     // End of variables declaration//GEN-END:variables
 }
