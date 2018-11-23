@@ -1,10 +1,9 @@
 package register;
 
 /**
- * 
+ *
  * @author Mark Anthoy Mamauag
  */
-
 import login.Login;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -77,8 +76,9 @@ public class Register extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblLogo = new javax.swing.JLabel();
+        lblLogoSecond = new javax.swing.JLabel();
         pnlInput = new javax.swing.JPanel();
-        txtPin = new javax.swing.JTextField();
         txtCardNo = new javax.swing.JTextField();
         txtBalance = new javax.swing.JTextField();
         lblCardNo = new javax.swing.JLabel();
@@ -87,12 +87,17 @@ public class Register extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         lnlName = new javax.swing.JLabel();
         btnGenerate = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        txtPin = new javax.swing.JPasswordField();
+        btnEye = new javax.swing.JButton();
+        lblBackgroundInput = new javax.swing.JLabel();
         pnlButton = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        lblBackgroundMain = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("KACHING");
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
@@ -100,131 +105,102 @@ public class Register extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblLogo.setFont(new java.awt.Font("Ebrima", 0, 36)); // NOI18N
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Logo.jpg"))); // NOI18N
+        lblLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 20, 420, 70));
+
+        lblLogoSecond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/second-logo.png"))); // NOI18N
+        getContentPane().add(lblLogoSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 150, 50));
+
         pnlInput.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlInput.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtCardNo.setEditable(false);
+        txtCardNo.setBackground(new java.awt.Color(201, 235, 249));
+        pnlInput.add(txtCardNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 10, 261, 37));
 
-        lblCardNo.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
+        txtBalance.setBackground(new java.awt.Color(201, 235, 249));
+        pnlInput.add(txtBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 261, 37));
+
+        lblCardNo.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblCardNo.setForeground(new java.awt.Color(204, 255, 255));
         lblCardNo.setText("Card No.");
+        pnlInput.add(lblCardNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, 124, 37));
 
-        lblPin.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
+        lblPin.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblPin.setForeground(new java.awt.Color(204, 255, 255));
         lblPin.setText("PIN Code");
+        pnlInput.add(lblPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 124, 37));
 
-        lblBalance.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
+        lblBalance.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblBalance.setForeground(new java.awt.Color(204, 255, 255));
         lblBalance.setText("Initial Balance");
+        pnlInput.add(lblBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 124, 37));
 
-        lnlName.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
+        txtName.setBackground(new java.awt.Color(201, 235, 249));
+        pnlInput.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 261, 37));
+
+        lnlName.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lnlName.setForeground(new java.awt.Color(204, 255, 255));
         lnlName.setText("Name");
+        pnlInput.add(lnlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 124, 37));
 
         btnGenerate.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        btnGenerate.setText("Generate");
+        btnGenerate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/generate.png"))); // NOI18N
         btnGenerate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateActionPerformed(evt);
             }
         });
+        pnlInput.add(btnGenerate, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 53, 50, 50));
 
-        javax.swing.GroupLayout pnlInputLayout = new javax.swing.GroupLayout(pnlInput);
-        pnlInput.setLayout(pnlInputLayout);
-        pnlInputLayout.setHorizontalGroup(
-            pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInputLayout.createSequentialGroup()
-                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlInputLayout.createSequentialGroup()
-                        .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlInputLayout.createSequentialGroup()
-                                .addGap(0, 0, 0)
-                                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblBalance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(pnlInputLayout.createSequentialGroup()
-                                            .addGap(10, 10, 10)
-                                            .addComponent(lblPin, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(lnlName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInputLayout.createSequentialGroup()
-                                .addGap(0, 0, 0)
-                                .addComponent(lblCardNo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)))
-                        .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCardNo)
-                            .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        pnlInputLayout.setVerticalGroup(
-            pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInputLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCardNo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCardNo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lnlName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        txtPin.setBackground(new java.awt.Color(201, 235, 249));
+        pnlInput.add(txtPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 261, 37));
 
-        getContentPane().add(pnlInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 420, 250));
+        btnEye.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        btnEye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eye.png"))); // NOI18N
+        btnEye.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEyeActionPerformed(evt);
+            }
+        });
+        pnlInput.add(btnEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(353, 152, 50, 50));
 
-        jLabel5.setFont(new java.awt.Font("Ebrima", 0, 36)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("HUMAN ATM KACHING!");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 480, -1));
+        lblBackgroundInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/register-background.jpg"))); // NOI18N
+        pnlInput.add(lblBackgroundInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 413, 303));
+
+        getContentPane().add(pnlInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 420, 310));
 
         pnlButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlButton.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegister.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        btnRegister.setText("Register");
+        btnRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/register.png"))); // NOI18N
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
             }
         });
+        pnlButton.add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 50));
 
         btnReturn.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
-        btnReturn.setText("Return");
+        btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/back.png"))); // NOI18N
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReturnActionPerformed(evt);
             }
         });
+        pnlButton.add(btnReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 50, 50));
 
-        javax.swing.GroupLayout pnlButtonLayout = new javax.swing.GroupLayout(pnlButton);
-        pnlButton.setLayout(pnlButtonLayout);
-        pnlButtonLayout.setHorizontalGroup(
-            pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlButtonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        pnlButtonLayout.setVerticalGroup(
-            pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlButtonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/register-background.jpg"))); // NOI18N
+        pnlButton.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 124, 64));
 
-        getContentPane().add(pnlButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 270, -1));
+        getContentPane().add(pnlButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, 130, 70));
+
+        lblBackgroundMain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/register-background.jpg"))); // NOI18N
+        getContentPane().add(lblBackgroundMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 590));
 
         pack();
         setLocationRelativeTo(null);
@@ -300,6 +276,20 @@ public class Register extends javax.swing.JFrame {
         log.show();
     }//GEN-LAST:event_btnReturnActionPerformed
 
+    private void btnEyeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeActionPerformed
+
+        char echo = txtPin.getEchoChar();
+
+        switch (echo) {
+            case '•':
+                txtPin.setEchoChar(' ');
+                break;
+            default:
+                txtPin.setEchoChar('•');
+        }
+
+    }//GEN-LAST:event_btnEyeActionPerformed
+
     public static void main(String args[]) {
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -332,12 +322,17 @@ public class Register extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEye;
     private javax.swing.JButton btnGenerate;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblBackgroundInput;
+    private javax.swing.JLabel lblBackgroundMain;
     private javax.swing.JLabel lblBalance;
     private javax.swing.JLabel lblCardNo;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogoSecond;
     private javax.swing.JLabel lblPin;
     private javax.swing.JLabel lnlName;
     private javax.swing.JPanel pnlButton;
@@ -345,6 +340,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField txtBalance;
     private javax.swing.JTextField txtCardNo;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPin;
+    private javax.swing.JPasswordField txtPin;
     // End of variables declaration//GEN-END:variables
 }
