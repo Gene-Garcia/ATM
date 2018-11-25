@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Team Lezned
+ */
 public class ChangePin extends javax.swing.JFrame {
-
-    Connection connect;
-    ResultSet rsData;
 
     public ChangePin(Connection con, ResultSet rs) {
         initComponents();
@@ -15,12 +16,27 @@ public class ChangePin extends javax.swing.JFrame {
         this.rsData = rs;
     }
 
-    public void clearTexts(){
-        txtPin.setText("");
-        txtOldPin.setText("");
-        txtVerificationPin.setText("");
+    Connection connect;
+    ResultSet rsData;
+
+    public void returnToTransaction() {
+        try {
+            this.dispose();
+            new Transactions(connect, rsData.getInt("CARD_NUMBER")).setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
+
+    public boolean verifyPinLength() {
+        if (txtOldPin.getText().length() == 4 && txtPin.getText().length() == 4 && txtVerificationPin.getText().length() == 4) {
+            return true;
+        }
+
+        JOptionPane.showMessageDialog(null, "Invalid pin(s), minimum and maximum of 4 digits.", "Kaching", JOptionPane.WARNING_MESSAGE);
+        return false;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,17 +46,22 @@ public class ChangePin extends javax.swing.JFrame {
         jlblNew2 = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
+        btnEye = new javax.swing.JButton();
         txtOldPin = new javax.swing.JPasswordField();
         txtPin = new javax.swing.JPasswordField();
         txtVerificationPin = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblOld.setText("Old PIN:");
+        getContentPane().add(jlblOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
 
         jlblNew.setText("New PIN:");
+        getContentPane().add(jlblNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 85, -1, -1));
 
         jlblNew2.setText("Re-enter new PIN:");
+        getContentPane().add(jlblNew2, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 125, -1, -1));
 
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -48,6 +69,7 @@ public class ChangePin extends javax.swing.JFrame {
                 btnConfirmActionPerformed(evt);
             }
         });
+        getContentPane().add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 175, -1, -1));
 
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -55,59 +77,18 @@ public class ChangePin extends javax.swing.JFrame {
                 btnReturnActionPerformed(evt);
             }
         });
+        getContentPane().add(btnReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(btnConfirm)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnReturn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlblOld)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtOldPin, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlblNew2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtVerificationPin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlblNew)
-                                .addGap(4, 4, 4)
-                                .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(125, 125, 125))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jlblOld))
-                    .addComponent(txtOldPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jlblNew))
-                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlblNew2)
-                    .addComponent(txtVerificationPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConfirm)
-                    .addComponent(btnReturn)))
-        );
+        btnEye.setText("Eye");
+        btnEye.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEyeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, -1, -1));
+        getContentPane().add(txtOldPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 150, -1));
+        getContentPane().add(txtPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 82, 140, -1));
+        getContentPane().add(txtVerificationPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(222, 122, 80, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -118,40 +99,56 @@ public class ChangePin extends javax.swing.JFrame {
         int oldPin = Integer.parseInt(String.valueOf(txtOldPin.getPassword()));
         int newPin1 = Integer.parseInt(String.valueOf(txtPin.getPassword()));
         int newPin2 = Integer.parseInt(String.valueOf(txtVerificationPin.getPassword()));
-        
+
         try {
             int pin = rsData.getInt("PIN");
 
-            if (newPin1 == newPin2 && pin == oldPin) {
+            if (verifyPinLength()) {
                 
-                rsData.updateInt("PIN", newPin1);
-                rsData.updateRow();
-                JOptionPane.showMessageDialog(this.btnConfirm, "Successfully Changed Pin");
+                if (newPin1 == newPin2 && pin == oldPin) {
+
+                    rsData.updateInt("PIN", newPin1);
+                    rsData.updateRow();
+                    JOptionPane.showMessageDialog(null, "Pin succesfully changed.", "Kaching", JOptionPane.INFORMATION_MESSAGE);
+
+                    returnToTransaction();
+                    
+                } else if (newPin1 != newPin2) {
+                    JOptionPane.showMessageDialog(null, "New pin does not match.", "Kaching", JOptionPane.WARNING_MESSAGE);
+                } else if (pin != oldPin) {
+                    JOptionPane.showMessageDialog(null, "Incorrect old pin.", "Kaching", JOptionPane.WARNING_MESSAGE);
+                }
                 
-                clearTexts();
-                
-            }else if(newPin1 != newPin2){
-                JOptionPane.showMessageDialog(this.btnConfirm, "new Pin Does not Match Please Try Again");
-            }else if(pin != oldPin){
-                JOptionPane.showMessageDialog(this.btnConfirm, "Incorrect old pin Pls try Again");
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        try {
-            this.dispose();
-            new Transactions(connect, rsData.getInt("CARD_NUMBER")).setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
-        }
+        returnToTransaction();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnEyeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeActionPerformed
+        char echo = txtPin.getEchoChar();
+
+        switch (echo) {
+            case '•':
+                txtPin.setEchoChar((char) 0);
+                txtOldPin.setEchoChar((char) 0);
+                txtVerificationPin.setEchoChar((char) 0);
+                break;
+            default:
+                txtPin.setEchoChar('•');
+                txtOldPin.setEchoChar('•');
+                txtVerificationPin.setEchoChar('•');
+        }
+    }//GEN-LAST:event_btnEyeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnEye;
     private javax.swing.JButton btnReturn;
     private javax.swing.JLabel jlblNew;
     private javax.swing.JLabel jlblNew2;

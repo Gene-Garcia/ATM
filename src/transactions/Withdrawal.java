@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Team Lezned
+ */
 public class Withdrawal extends javax.swing.JFrame {
 
     public Withdrawal(Connection con, ResultSet rs) {
@@ -12,11 +16,11 @@ public class Withdrawal extends javax.swing.JFrame {
         this.rsData = rs;
     }
 
-    final int MAXIMUM_AMOUNT_WITHDRAWABLE = 10000;
-    final int MINIMUM_WITHDRAWABLE_AMOUT = 200;
-
     Connection connect;
     ResultSet rsData;
+
+    final int MAXIMUM_AMOUNT_WITHDRAWABLE = 10000;
+    final int MINIMUM_WITHDRAWABLE_AMOUT = 200;
 
     public boolean checkWithdrawableAmount(double withdrawAmount) {
         if (withdrawAmount >= MINIMUM_WITHDRAWABLE_AMOUT && withdrawAmount <= MAXIMUM_AMOUNT_WITHDRAWABLE) {
@@ -32,9 +36,13 @@ public class Withdrawal extends javax.swing.JFrame {
         return false;
     }
 
-    public void clearTexts() {
-        txtAmount.setText("");
-        txtPin.setText("");
+    public void returnToTransaction() {
+        try {
+            this.dispose();
+            new Transactions(connect, rsData.getInt("CARD_NUMBER")).setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -47,9 +55,11 @@ public class Withdrawal extends javax.swing.JFrame {
         txtPin = new javax.swing.JPasswordField();
         txtAmount = new javax.swing.JTextField();
         btnReturn = new javax.swing.JButton();
+        btnEye = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(445, 243));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -57,10 +67,15 @@ public class Withdrawal extends javax.swing.JFrame {
                 btnConfirmActionPerformed(evt);
             }
         });
+        getContentPane().add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 222, -1, -1));
 
         lblWithdraw.setText("Amount to be Withdrawn:");
+        getContentPane().add(lblWithdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, -1, -1));
 
         lblPin.setText("PIN:");
+        getContentPane().add(lblPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 139, -1, -1));
+        getContentPane().add(txtPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(153, 136, 164, -1));
+        getContentPane().add(txtAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 70, 164, -1));
 
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -68,52 +83,15 @@ public class Withdrawal extends javax.swing.JFrame {
                 btnReturnActionPerformed(evt);
             }
         });
+        getContentPane().add(btnReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 222, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblWithdraw)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnConfirm)
-                                .addGap(69, 69, 69)
-                                .addComponent(btnReturn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPin)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(129, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblWithdraw))
-                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(lblPin))
-                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReturn)
-                    .addComponent(btnConfirm))
-                .addGap(4, 4, 4))
-        );
+        btnEye.setText("Eye");
+        btnEye.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEyeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -127,24 +105,28 @@ public class Withdrawal extends javax.swing.JFrame {
 
             int pin = rsData.getInt("PIN");
 
-            if (inputPin == pin) {
+            if (txtPin.getText().length() == 4) {
+                
+                if (inputPin == pin) {
 
-                if (checkWithdrawableAmount(withdrawal)) {
+                    if (checkWithdrawableAmount(withdrawal)) {
 
-                    double currentBalance = rsData.getDouble("OUTSTANDING_BALANCE");
-                    double newBalance = currentBalance - withdrawal;
+                        double currentBalance = rsData.getDouble("OUTSTANDING_BALANCE");
+                        double newBalance = currentBalance - withdrawal;
 
-                    rsData.updateDouble("OUTSTANDING_BALANCE", newBalance);
+                        rsData.updateDouble("OUTSTANDING_BALANCE", newBalance);
 
-                    rsData.updateRow();
+                        rsData.updateRow();
 
-                    JOptionPane.showMessageDialog(null, "Transaction Complete");
+                        JOptionPane.showMessageDialog(null, "Transaction Complete");
 
-                    clearTexts();
+                        returnToTransaction();
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect pin.");
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Incorrect pin.");
+                
             }
 
         } catch (Exception e) {
@@ -153,16 +135,24 @@ public class Withdrawal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        try {
-            this.dispose();
-            new Transactions(connect, rsData.getInt("CARD_NUMBER")).setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
-        }
+        returnToTransaction();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnEyeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeActionPerformed
+        char echo = txtPin.getEchoChar();
+
+        switch (echo) {
+            case '•':
+                txtPin.setEchoChar((char) 0);
+                break;
+            default:
+                txtPin.setEchoChar('•');
+        }
+    }//GEN-LAST:event_btnEyeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JButton btnEye;
     private javax.swing.JButton btnReturn;
     private javax.swing.JLabel lblPin;
     private javax.swing.JLabel lblWithdraw;

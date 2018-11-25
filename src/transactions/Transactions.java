@@ -1,15 +1,25 @@
 package transactions;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import login.Login;
+
+/**
+ *
+ * @author Team Lezned
+ */
 
 public class Transactions extends javax.swing.JFrame {
-    
+
     Connection connect;
     Statement sCommand;
     ResultSet rsData;
-    int curRow = 0;
+    
     int cardNumber;
+
+    String sqlCommand;
     
     public Transactions(Connection con, int cardNumber) {
         initComponents();
@@ -17,21 +27,20 @@ public class Transactions extends javax.swing.JFrame {
         this.cardNumber = cardNumber;
         connectToDatabase();
     }
-    
-    
+
     public void connectToDatabase() {
         try {
             sCommand = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String sql = "SELECT * FROM APP.CUSTOMER_DATA WHERE CARD_NUMBER = " + cardNumber;
+           sqlCommand = "SELECT * FROM APP.CUSTOMER_DATA WHERE CARD_NUMBER = " + cardNumber;
             System.out.println(cardNumber);
-            rsData = sCommand.executeQuery(sql);
+            rsData = sCommand.executeQuery(sqlCommand);
             rsData.first();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,10 +135,10 @@ public class Transactions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBalanceInquiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalanceInquiryActionPerformed
-        int outstandingBalance;
-        
+        double outstandingBalance;
+
         try {
-            outstandingBalance = rsData.getInt("BALANCE");
+            outstandingBalance = rsData.getDouble("OUTSTANDING_BALANCE");
             JOptionPane.showMessageDialog(this.btnBalanceInquiry, "Your balance is " + outstandingBalance);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
@@ -166,6 +175,7 @@ public class Transactions extends javax.swing.JFrame {
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.dispose();
+        new Login(connect).show();
     }//GEN-LAST:event_btnExitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
