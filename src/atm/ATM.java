@@ -10,6 +10,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Team Lezned
+ */
+
 public class ATM {
 
     final String HOST = "jdbc:derby://localhost:1527/LEZNED";

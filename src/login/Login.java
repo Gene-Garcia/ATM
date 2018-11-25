@@ -10,26 +10,17 @@ import javax.swing.JOptionPane;
 import transactions.*;
 
 /**
- *
- * @author Gene Garcia
+ * 
+ * @author Team Lezned
  */
-public class Login extends javax.swing.JFrame {
 
-    public Login() {
-        initComponents();
-        connectToDatabase();
-    }
+public class Login extends javax.swing.JFrame {
 
     public Login(Connection con) {
         initComponents();
         connect = con;
         connectToDatabase();
-
     }
-
-    //  USER DEFINED --------------------------------------
-    //classes
-    Register reg;
 
     Connection connect;
     Statement sCommand;
@@ -72,7 +63,6 @@ public class Login extends javax.swing.JFrame {
         return false;
     }
 
-    // END USER DEFINED -----------------------------------
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,11 +103,6 @@ public class Login extends javax.swing.JFrame {
         txtCardNumber.setBackground(new java.awt.Color(201, 235, 249));
         txtCardNumber.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         txtCardNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCardNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCardNumberActionPerformed(evt);
-            }
-        });
         pnlInput.add(txtCardNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 22, 261, 37));
 
         lnlCardNo.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
@@ -177,14 +162,9 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCardNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardNumberActionPerformed
-
-    }//GEN-LAST:event_txtCardNumberActionPerformed
-
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         this.dispose();
-        reg = new Register(connect);
-        reg.show();
+        new Register(connect).show();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed

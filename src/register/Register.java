@@ -1,9 +1,5 @@
 package register;
 
-/**
- *
- * @author Mark Anthoy Mamauag
- */
 import login.Login;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,24 +8,17 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Team Lezned
+ */
 public class Register extends javax.swing.JFrame {
-
-    public Register() {
-        initComponents();
-        connectToDatabase();
-
-    }
 
     public Register(Connection con) {
         initComponents();
         connect = con;
         connectToDatabase();
     }
-
-    //USER DEFINED METHODS ----------------------------------------------------
-    Login log;
-
-    int currentRecord;
 
     Connection connect;
     Statement sCommand;
@@ -71,7 +60,6 @@ public class Register extends javax.swing.JFrame {
         txtName.setText("");
         txtBalance.setText("");
     }
-    //END OF USER DEFINED METHODS -------------------------------------------
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -157,6 +145,7 @@ public class Register extends javax.swing.JFrame {
         pnlInput.add(btnGenerate, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 53, 50, 50));
 
         txtPin.setBackground(new java.awt.Color(201, 235, 249));
+        txtPin.setName(""); // NOI18N
         pnlInput.add(txtPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 261, 37));
 
         btnEye.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
@@ -214,37 +203,41 @@ public class Register extends javax.swing.JFrame {
         String name = "";
 
         if (!(txtCardNo.getText().equals("") || txtPin.getText().equals("") || txtBalance.getText().equals("") || txtName.getText().equals(""))) {
+            if (txtPin.getText().length() == 4) {
+                //Getting Input from Text Fields
+                name = txtName.getText();
 
-            //Getting Input from Text Fields
-            name = txtName.getText();
+                //Parsing Integer Variables
+                newCardNo = Integer.parseInt(txtCardNo.getText());
+                newPin = Integer.parseInt(txtPin.getText());
+                newBal = Double.parseDouble(txtBalance.getText());
 
-            //Parsing Integer Variables
-            newCardNo = Integer.parseInt(txtCardNo.getText());
-            newPin = Integer.parseInt(txtPin.getText());
-            newBal = Double.parseDouble(txtBalance.getText());
+                //Inserting Data to Table
+                try {
 
-            //Inserting Data to Table
-            try {
+                    rsData = sCommand.executeQuery("select * from APP.CUSTOMER_DATA");
+                    rsData.moveToInsertRow();
+                    rsData.updateInt("CARD_NUMBER", newCardNo);
+                    rsData.updateInt("PIN", newPin);
+                    rsData.updateDouble("OUTSTANDING_BALANCE", newBal);
+                    rsData.updateString("NAME", name);
+                    rsData.insertRow();
 
-                rsData = sCommand.executeQuery("select * from APP.CUSTOMER_DATA");
-                rsData.moveToInsertRow();
-                rsData.updateInt("CARD_NUMBER", newCardNo);
-                rsData.updateInt("PIN", newPin);
-                rsData.updateDouble("OUTSTANDING_BALANCE", newBal);
-                rsData.updateString("NAME", name);
-                rsData.insertRow();
+                    sCommand.close();
+                    rsData.close();
 
-                sCommand.close();
-                rsData.close();
+                    connectToDatabase();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
+                }
 
-                connectToDatabase();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
+                JOptionPane.showMessageDialog(null, "Successful Registration! ");
+
+                clearFields();
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid pin, minimum and maximum of 4 digits.");
             }
 
-            JOptionPane.showMessageDialog(null, "Successful Registration! ");
-
-            clearFields();
         } else {
             JOptionPane.showMessageDialog(null, "Error registering your account.\nPlease check if you have filled up the required fields.");
         }
@@ -252,7 +245,12 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
-        txtCardNo.setText(String.valueOf(getHighestRecord()));
+        int highestRec = getHighestRecord();
+        if (highestRec == 0) {
+            txtCardNo.setText("2018000");
+        } else {
+            txtCardNo.setText(String.valueOf(highestRec));
+        }
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
@@ -272,8 +270,8 @@ public class Register extends javax.swing.JFrame {
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
 
         this.dispose();
-        log = new Login(connect);
-        log.show();
+        new Login(connect).show();
+
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnEyeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEyeActionPerformed
@@ -282,44 +280,13 @@ public class Register extends javax.swing.JFrame {
 
         switch (echo) {
             case '•':
-                txtPin.setEchoChar(' ');
+                txtPin.setEchoChar((char) 0);
                 break;
             default:
                 txtPin.setEchoChar('•');
         }
 
     }//GEN-LAST:event_btnEyeActionPerformed
-
-    public static void main(String args[]) {
-
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Register().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEye;

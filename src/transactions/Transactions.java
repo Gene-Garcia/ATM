@@ -1,5 +1,7 @@
 package transactions;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,17 +12,16 @@ import login.Login;
  *
  * @author Team Lezned
  */
-
 public class Transactions extends javax.swing.JFrame {
 
     Connection connect;
     Statement sCommand;
     ResultSet rsData;
-    
+
     int cardNumber;
 
     String sqlCommand;
-    
+
     public Transactions(Connection con, int cardNumber) {
         initComponents();
         connect = con;
@@ -31,7 +32,7 @@ public class Transactions extends javax.swing.JFrame {
     public void connectToDatabase() {
         try {
             sCommand = connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-           sqlCommand = "SELECT * FROM APP.CUSTOMER_DATA WHERE CARD_NUMBER = " + cardNumber;
+            sqlCommand = "SELECT * FROM APP.CUSTOMER_DATA WHERE CARD_NUMBER = " + cardNumber;
             System.out.println(cardNumber);
             rsData = sCommand.executeQuery(sqlCommand);
             rsData.first();
@@ -45,31 +46,42 @@ public class Transactions extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlTransactButtons = new javax.swing.JPanel();
         btnDeposit = new javax.swing.JButton();
-        btnWithdrawal = new javax.swing.JButton();
         btnChangePin = new javax.swing.JButton();
+        btnWithdrawal = new javax.swing.JButton();
         btnBalanceInquiry = new javax.swing.JButton();
+        lblMessage = new javax.swing.JLabel();
+        lblBackgroundInput = new javax.swing.JLabel();
+        pnlButton = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
+        lblBackgroundButton = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+        lblLogoSecond = new javax.swing.JLabel();
+        lblBackground = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kaching Bank");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnDeposit.setText("Deposit");
+        pnlTransactButtons.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pnlTransactButtons.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnDeposit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/deposit-big.png"))); // NOI18N
         btnDeposit.setPreferredSize(new java.awt.Dimension(107, 23));
         btnDeposit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDepositActionPerformed(evt);
             }
         });
+        pnlTransactButtons.add(btnDeposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 100, 80));
 
-        btnWithdrawal.setText("Withdrawal");
-        btnWithdrawal.setPreferredSize(new java.awt.Dimension(107, 23));
-        btnWithdrawal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnWithdrawalActionPerformed(evt);
-            }
-        });
-
-        btnChangePin.setText("Change Pin");
+        btnChangePin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/change-pin-big.png"))); // NOI18N
         btnChangePin.setMinimumSize(new java.awt.Dimension(107, 23));
         btnChangePin.setPreferredSize(new java.awt.Dimension(107, 23));
         btnChangePin.addActionListener(new java.awt.event.ActionListener() {
@@ -77,58 +89,64 @@ public class Transactions extends javax.swing.JFrame {
                 btnChangePinActionPerformed(evt);
             }
         });
+        pnlTransactButtons.add(btnChangePin, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 100, 80));
 
-        btnBalanceInquiry.setText("Balance Inquiry");
+        btnWithdrawal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/withdraw-bigpng.png"))); // NOI18N
+        btnWithdrawal.setPreferredSize(new java.awt.Dimension(107, 23));
+        btnWithdrawal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWithdrawalActionPerformed(evt);
+            }
+        });
+        pnlTransactButtons.add(btnWithdrawal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 100, 80));
+
+        btnBalanceInquiry.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/balance-big.png"))); // NOI18N
         btnBalanceInquiry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBalanceInquiryActionPerformed(evt);
             }
         });
+        pnlTransactButtons.add(btnBalanceInquiry, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 100, 80));
 
-        btnExit.setText("Exit");
+        lblMessage.setBackground(new java.awt.Color(201, 235, 249));
+        lblMessage.setForeground(new java.awt.Color(0, 0, 0));
+        lblMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMessage.setText("jLabel1");
+        lblMessage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblMessage.setOpaque(true);
+        pnlTransactButtons.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 260, 170));
+
+        lblBackgroundInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/transaction-bacground.jpg"))); // NOI18N
+        pnlTransactButtons.add(lblBackgroundInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 495, 245));
+
+        getContentPane().add(pnlTransactButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 170, 500, 250));
+
+        pnlButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlButton.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/back.png"))); // NOI18N
         btnExit.setPreferredSize(new java.awt.Dimension(107, 23));
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
             }
         });
+        pnlButton.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 5, 50, 50));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                        .addComponent(btnChangePin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnWithdrawal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBalanceInquiry)))
-                .addGap(38, 38, 38))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChangePin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnWithdrawal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBalanceInquiry))
-                .addGap(41, 41, 41)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
+        lblBackgroundButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/transaction-bacground.jpg"))); // NOI18N
+        pnlButton.add(lblBackgroundButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 55, 55));
+
+        getContentPane().add(pnlButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(465, 430, 60, 60));
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Logo.jpg"))); // NOI18N
+        lblLogo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 20, -1, 70));
+
+        lblLogoSecond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/second-logo.png"))); // NOI18N
+        getContentPane().add(lblLogoSecond, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 150, 50));
+
+        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/transaction-bacground.jpg"))); // NOI18N
+        getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 505));
 
         pack();
         setLocationRelativeTo(null);
@@ -178,11 +196,30 @@ public class Transactions extends javax.swing.JFrame {
         new Login(connect).show();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
+
+        this.setLocation(x, y);
+    }//GEN-LAST:event_formWindowOpened
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBalanceInquiry;
     private javax.swing.JButton btnChangePin;
     private javax.swing.JButton btnDeposit;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnWithdrawal;
+    private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblBackgroundButton;
+    private javax.swing.JLabel lblBackgroundInput;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogoSecond;
+    private javax.swing.JLabel lblMessage;
+    private javax.swing.JPanel pnlButton;
+    private javax.swing.JPanel pnlTransactButtons;
     // End of variables declaration//GEN-END:variables
 }
