@@ -66,7 +66,7 @@ public class Withdrawal extends javax.swing.JFrame {
         lblBackgroundButton = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Withdraw");
         setMinimumSize(new java.awt.Dimension(445, 243));
         addWindowListener(new java.awt.event.WindowAdapter() {
