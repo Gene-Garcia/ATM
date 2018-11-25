@@ -29,7 +29,7 @@
                       <EmptySpace min="54" pref="54" max="-2" attributes="0"/>
                       <Component id="jlblAmount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                      <Component id="jtxtfAmount" min="-2" pref="164" max="-2" attributes="0"/>
+                      <Component id="txtAmount" min="-2" pref="164" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
@@ -37,12 +37,12 @@
                           <Group type="102" attributes="0">
                               <Component id="jlblPIN" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                              <Component id="jpfPIN" min="-2" pref="164" max="-2" attributes="0"/>
+                              <Component id="txtPin" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jbtnConfirm" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnConfirm" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jbtnCancel" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -60,7 +60,7 @@
                       <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                       <Component id="jlblAmount" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jtxtfAmount" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAmount" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="42" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -68,12 +68,12 @@
                       <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                       <Component id="jlblPIN" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jpfPIN" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPin" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jbtnConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnConfirm" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReturn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
           </Group>
@@ -86,19 +86,16 @@
         <Property name="text" type="java.lang.String" value="PIN:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="jpfPIN">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jpfPINActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JPasswordField" name="txtPin">
     </Component>
-    <Component class="javax.swing.JTextField" name="jtxtfAmount">
+    <Component class="javax.swing.JTextField" name="txtAmount">
     </Component>
-    <Component class="javax.swing.JButton" name="jbtnConfirm">
+    <Component class="javax.swing.JButton" name="btnConfirm">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirm"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnConfirmActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConfirmActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlblAmount">
@@ -106,12 +103,12 @@
         <Property name="text" type="java.lang.String" value="Deposit Amount:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jbtnCancel">
+    <Component class="javax.swing.JButton" name="btnReturn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnCancelActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReturnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
