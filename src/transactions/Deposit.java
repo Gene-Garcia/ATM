@@ -141,7 +141,7 @@ public class Deposit extends javax.swing.JFrame {
         getContentPane().add(pnlInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 480, 190));
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/deposit-background.jpg"))); // NOI18N
-        getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 463));
+        getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 517, 463));
 
         pack();
         setLocationRelativeTo(null);
