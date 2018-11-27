@@ -21,18 +21,23 @@ public class Withdrawal extends javax.swing.JFrame {
     Connection connect;
     ResultSet rsData;
 
-    final int MAXIMUM_AMOUNT_WITHDRAWABLE = 10000;
+    final int MAINTAINING_BALANCE = 2000;
     final int MINIMUM_WITHDRAWABLE_AMOUT = 200;
 
     public boolean checkWithdrawableAmount(double withdrawAmount) {
-        if (withdrawAmount >= MINIMUM_WITHDRAWABLE_AMOUT && withdrawAmount <= MAXIMUM_AMOUNT_WITHDRAWABLE) {
+        try {
+            if (withdrawAmount >= MINIMUM_WITHDRAWABLE_AMOUT && (rsData.getDouble("OUTSTANDING_BALANCE") - withdrawAmount) >= MAINTAINING_BALANCE) {
 
-            return true;
+                return true;
 
-        } else if (withdrawAmount < MINIMUM_WITHDRAWABLE_AMOUT) {
-            JOptionPane.showMessageDialog(null, "Less than withdrawal limit.");
-        } else if (withdrawAmount > MAXIMUM_AMOUNT_WITHDRAWABLE) {
-            JOptionPane.showMessageDialog(null, "Exceeded the maximum withdrawal limit.");
+            } else if (withdrawAmount < MINIMUM_WITHDRAWABLE_AMOUT) {
+                JOptionPane.showMessageDialog(null, "Less than withdrawal limit.");
+            } else if (rsData.getDouble("OUTSTANDING_BALANCE") - withdrawAmount < MAINTAINING_BALANCE) {
+                JOptionPane.showMessageDialog(null, "Amount too big, there is a maintaing balance of P2000.");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
         }
 
         return false;
@@ -152,13 +157,13 @@ public class Withdrawal extends javax.swing.JFrame {
         try {
 
             double withdrawal = Double.parseDouble(txtAmount.getText());
-            int inputPin = Integer.parseInt(String.valueOf(txtPin.getPassword()));
+            String inputPin = String.valueOf(txtPin.getPassword());
 
-            int pin = rsData.getInt("PIN");
+            String pin = rsData.getString("PIN");
 
             if (txtPin.getText().length() == 4) {
 
-                if (inputPin == pin) {
+                if (inputPin.equals(pin)) {
 
                     if (checkWithdrawableAmount(withdrawal)) {
 

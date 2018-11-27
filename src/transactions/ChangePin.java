@@ -157,26 +157,26 @@ public class ChangePin extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
 
-        int oldPin = Integer.parseInt(String.valueOf(txtOldPin.getPassword()));
-        int newPin1 = Integer.parseInt(String.valueOf(txtPin.getPassword()));
-        int newPin2 = Integer.parseInt(String.valueOf(txtVerificationPin.getPassword()));
+        String oldPin = String.valueOf(txtOldPin.getPassword());
+        String newPin1 = String.valueOf(txtPin.getPassword());
+        String newPin2 = String.valueOf(txtVerificationPin.getPassword());
 
         try {
-            int pin = rsData.getInt("PIN");
+            String pin = rsData.getString("PIN");
 
             if (verifyPinLength()) {
 
-                if (newPin1 == newPin2 && pin == oldPin) {
+                if (newPin1.equals(newPin2) && pin.equals(oldPin)) {
 
-                    rsData.updateInt("PIN", newPin1);
+                    rsData.updateString("PIN", newPin1);
                     rsData.updateRow();
                     JOptionPane.showMessageDialog(null, "Pin succesfully changed.", "Kaching", JOptionPane.INFORMATION_MESSAGE);
 
                     returnToTransaction();
 
-                } else if (newPin1 != newPin2) {
+                } else if (!newPin1.equals(newPin2)) {
                     JOptionPane.showMessageDialog(null, "New pin does not match.", "Kaching", JOptionPane.WARNING_MESSAGE);
-                } else if (pin != oldPin) {
+                } else if (!pin.equals(oldPin)) {
                     JOptionPane.showMessageDialog(null, "Incorrect old pin.", "Kaching", JOptionPane.WARNING_MESSAGE);
                 }
 

@@ -150,13 +150,13 @@ public class Deposit extends javax.swing.JFrame {
         try {
 
             double depositValue = Double.parseDouble(txtAmount.getText());
-            int inputPin = Integer.parseInt(String.valueOf(txtPin.getPassword()));
+            String inputPin = String.valueOf(txtPin.getPassword());
 
-            int pin = rsData.getInt("PIN");
+            String pin = rsData.getString("PIN");
 
             if (txtPin.getText().length() == 4) {
 
-                if (inputPin == pin) {
+                if (inputPin.equals(pin)) {
 
                     if (verifyDepositAmount(depositValue)) {
 

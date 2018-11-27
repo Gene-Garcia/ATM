@@ -25,6 +25,7 @@ public class Register extends javax.swing.JFrame {
     ResultSet rsData;
 
     public int getHighestRecord() {
+        final int STARTING_RECORD = 2018001;
         int returnValue = 0;
         try {
 
@@ -37,7 +38,7 @@ public class Register extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
-        return returnValue;
+        return returnValue == 1 ? STARTING_RECORD : returnValue;
     }
 
     public void connectToDatabase() {
@@ -218,7 +219,7 @@ public class Register extends javax.swing.JFrame {
                     rsData = sCommand.executeQuery("select * from APP.CUSTOMER_DATA");
                     rsData.moveToInsertRow();
                     rsData.updateInt("CARD_NUMBER", newCardNo);
-                    rsData.updateInt("PIN", newPin);
+                    rsData.updateString("PIN", String.valueOf(newPin));
                     rsData.updateDouble("OUTSTANDING_BALANCE", newBal);
                     rsData.updateString("NAME", name);
                     rsData.insertRow();
