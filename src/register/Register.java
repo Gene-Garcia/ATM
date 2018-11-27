@@ -74,7 +74,7 @@ public class Register extends javax.swing.JFrame {
         lblPin = new javax.swing.JLabel();
         lblBalance = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        lnlName = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         btnGenerate = new javax.swing.JButton();
         txtPin = new javax.swing.JPasswordField();
         btnEye = new javax.swing.JButton();
@@ -82,7 +82,7 @@ public class Register extends javax.swing.JFrame {
         pnlButton = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblBackgroundButton = new javax.swing.JLabel();
         lblBackgroundMain = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,10 +132,10 @@ public class Register extends javax.swing.JFrame {
         txtName.setBackground(new java.awt.Color(201, 235, 249));
         pnlInput.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 261, 37));
 
-        lnlName.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
-        lnlName.setForeground(new java.awt.Color(204, 255, 255));
-        lnlName.setText("Name");
-        pnlInput.add(lnlName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 124, 37));
+        lblName.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblName.setForeground(new java.awt.Color(204, 255, 255));
+        lblName.setText("Name");
+        pnlInput.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 124, 37));
 
         btnGenerate.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         btnGenerate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/generate.png"))); // NOI18N
@@ -185,8 +185,8 @@ public class Register extends javax.swing.JFrame {
         });
         pnlButton.add(btnReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 50, 50));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/register-background.jpg"))); // NOI18N
-        pnlButton.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 124, 64));
+        lblBackgroundButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/register-background.jpg"))); // NOI18N
+        pnlButton.add(lblBackgroundButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 124, 64));
 
         getContentPane().add(pnlButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, 130, 70));
 
@@ -295,15 +295,15 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JButton btnGenerate;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblBackgroundButton;
     private javax.swing.JLabel lblBackgroundInput;
     private javax.swing.JLabel lblBackgroundMain;
     private javax.swing.JLabel lblBalance;
     private javax.swing.JLabel lblCardNo;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoSecond;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPin;
-    private javax.swing.JLabel lnlName;
     private javax.swing.JPanel pnlButton;
     private javax.swing.JPanel pnlInput;
     private javax.swing.JTextField txtBalance;

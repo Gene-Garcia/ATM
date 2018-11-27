@@ -64,7 +64,7 @@ public class Withdrawal extends javax.swing.JFrame {
         txtPin = new javax.swing.JPasswordField();
         txtAmount = new javax.swing.JTextField();
         btnEye = new javax.swing.JButton();
-        lblBackground1 = new javax.swing.JLabel();
+        lblBackgroundInput = new javax.swing.JLabel();
         pnlButton = new javax.swing.JPanel();
         btnConfirm = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
@@ -118,8 +118,8 @@ public class Withdrawal extends javax.swing.JFrame {
         });
         pnlInput.add(btnEye, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 116, 50, 50));
 
-        lblBackground1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/withdraw-background.jpg"))); // NOI18N
-        pnlInput.add(lblBackground1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 475, 175));
+        lblBackgroundInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/withdraw-background.jpg"))); // NOI18N
+        pnlInput.add(lblBackgroundInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 475, 175));
 
         getContentPane().add(pnlInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 480, 180));
 
@@ -223,8 +223,8 @@ public class Withdrawal extends javax.swing.JFrame {
     private javax.swing.JButton btnEye;
     private javax.swing.JButton btnReturn;
     private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblBackground1;
     private javax.swing.JLabel lblBackgroundButton;
+    private javax.swing.JLabel lblBackgroundInput;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoSecond;
     private javax.swing.JLabel lblPin;

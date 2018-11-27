@@ -48,9 +48,9 @@ public class ChangePin extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
         lblBackgroundButton = new javax.swing.JLabel();
         pnlInput = new javax.swing.JPanel();
-        jlblOld = new javax.swing.JLabel();
-        jlblNew = new javax.swing.JLabel();
-        jlblNew2 = new javax.swing.JLabel();
+        lblOld = new javax.swing.JLabel();
+        lblNew = new javax.swing.JLabel();
+        lblNew2 = new javax.swing.JLabel();
         txtOldPin = new javax.swing.JPasswordField();
         txtPin = new javax.swing.JPasswordField();
         txtVerificationPin = new javax.swing.JPasswordField();
@@ -97,20 +97,20 @@ public class ChangePin extends javax.swing.JFrame {
         pnlInput.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pnlInput.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlblOld.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
-        jlblOld.setForeground(new java.awt.Color(204, 255, 255));
-        jlblOld.setText("Old PIN:");
-        pnlInput.add(jlblOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 37));
+        lblOld.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblOld.setForeground(new java.awt.Color(204, 255, 255));
+        lblOld.setText("Old PIN:");
+        pnlInput.add(lblOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 160, 37));
 
-        jlblNew.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
-        jlblNew.setForeground(new java.awt.Color(204, 255, 255));
-        jlblNew.setText("New PIN:");
-        pnlInput.add(jlblNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 160, 37));
+        lblNew.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblNew.setForeground(new java.awt.Color(204, 255, 255));
+        lblNew.setText("New PIN:");
+        pnlInput.add(lblNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 160, 37));
 
-        jlblNew2.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
-        jlblNew2.setForeground(new java.awt.Color(204, 255, 255));
-        jlblNew2.setText("Re-enter new PIN:");
-        pnlInput.add(jlblNew2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 160, 37));
+        lblNew2.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblNew2.setForeground(new java.awt.Color(204, 255, 255));
+        lblNew2.setText("Re-enter new PIN:");
+        pnlInput.add(lblNew2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 160, 37));
 
         txtOldPin.setBackground(new java.awt.Color(201, 235, 249));
         txtOldPin.setForeground(new java.awt.Color(0, 0, 0));
@@ -227,14 +227,14 @@ public class ChangePin extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnEye;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JLabel jlblNew;
-    private javax.swing.JLabel jlblNew2;
-    private javax.swing.JLabel jlblOld;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBackgroundButton;
     private javax.swing.JLabel lblBackgroundInput;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoSecond;
+    private javax.swing.JLabel lblNew;
+    private javax.swing.JLabel lblNew2;
+    private javax.swing.JLabel lblOld;
     private javax.swing.JPanel pnlButton;
     private javax.swing.JPanel pnlInput;
     private javax.swing.JPasswordField txtOldPin;

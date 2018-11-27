@@ -55,11 +55,11 @@ public class Deposit extends javax.swing.JFrame {
         pnlButton = new javax.swing.JPanel();
         btnConfirm = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
-        lblBackground1 = new javax.swing.JLabel();
+        lblBackgroundButton = new javax.swing.JLabel();
         pnlInput = new javax.swing.JPanel();
         jlblPIN = new javax.swing.JLabel();
         txtAmount = new javax.swing.JTextField();
-        jlblAmount = new javax.swing.JLabel();
+        lblAmount = new javax.swing.JLabel();
         txtPin = new javax.swing.JPasswordField();
         btnEye = new javax.swing.JButton();
         lblBackgroundInput = new javax.swing.JLabel();
@@ -101,8 +101,8 @@ public class Deposit extends javax.swing.JFrame {
         });
         pnlButton.add(btnReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 8, 50, 50));
 
-        lblBackground1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/deposit-background.jpg"))); // NOI18N
-        pnlButton.add(lblBackground1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 120, 60));
+        lblBackgroundButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/deposit-background.jpg"))); // NOI18N
+        pnlButton.add(lblBackgroundButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 120, 60));
 
         getContentPane().add(pnlButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(374, 380, 125, 65));
 
@@ -118,10 +118,10 @@ public class Deposit extends javax.swing.JFrame {
         txtAmount.setForeground(new java.awt.Color(0, 0, 0));
         pnlInput.add(txtAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 261, 37));
 
-        jlblAmount.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
-        jlblAmount.setForeground(new java.awt.Color(204, 255, 255));
-        jlblAmount.setText("Deposit Amount:");
-        pnlInput.add(jlblAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 150, 37));
+        lblAmount.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblAmount.setForeground(new java.awt.Color(204, 255, 255));
+        lblAmount.setText("Deposit Amount:");
+        pnlInput.add(lblAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 150, 37));
 
         txtPin.setBackground(new java.awt.Color(201, 235, 249));
         txtPin.setForeground(new java.awt.Color(0, 0, 0));
@@ -213,10 +213,10 @@ public class Deposit extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnEye;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JLabel jlblAmount;
     private javax.swing.JLabel jlblPIN;
+    private javax.swing.JLabel lblAmount;
     private javax.swing.JLabel lblBackground;
-    private javax.swing.JLabel lblBackground1;
+    private javax.swing.JLabel lblBackgroundButton;
     private javax.swing.JLabel lblBackgroundInput;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoSecond;
