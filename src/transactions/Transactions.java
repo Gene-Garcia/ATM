@@ -51,7 +51,9 @@ public class Transactions extends javax.swing.JFrame {
         btnChangePin = new javax.swing.JButton();
         btnWithdrawal = new javax.swing.JButton();
         btnBalanceInquiry = new javax.swing.JButton();
-        lblMessage = new javax.swing.JLabel();
+        lblLog = new javax.swing.JLabel();
+        balanceLog = new javax.swing.JScrollPane();
+        areaMessage = new javax.swing.JTextArea();
         lblBackgroundInput = new javax.swing.JLabel();
         pnlButton = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
@@ -108,13 +110,28 @@ public class Transactions extends javax.swing.JFrame {
         });
         pnlTransactButtons.add(btnBalanceInquiry, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, 100, 80));
 
-        lblMessage.setBackground(new java.awt.Color(201, 235, 249));
-        lblMessage.setForeground(new java.awt.Color(0, 0, 0));
-        lblMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMessage.setText("jLabel1");
-        lblMessage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        lblMessage.setOpaque(true);
-        pnlTransactButtons.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 260, 170));
+        lblLog.setBackground(new java.awt.Color(201, 235, 249));
+        lblLog.setFont(new java.awt.Font("Nirmala UI Semilight", 1, 18)); // NOI18N
+        lblLog.setForeground(new java.awt.Color(0, 0, 0));
+        lblLog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLog.setText("Balance Log");
+        lblLog.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        lblLog.setOpaque(true);
+        pnlTransactButtons.add(lblLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 14, 249, -1));
+
+        balanceLog.setBackground(new java.awt.Color(201, 235, 249));
+
+        areaMessage.setEditable(false);
+        areaMessage.setBackground(new java.awt.Color(201, 235, 249));
+        areaMessage.setColumns(20);
+        areaMessage.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
+        areaMessage.setForeground(new java.awt.Color(0, 0, 0));
+        areaMessage.setLineWrap(true);
+        areaMessage.setRows(5);
+        areaMessage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        balanceLog.setViewportView(areaMessage);
+
+        pnlTransactButtons.add(balanceLog, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 38, 250, 180));
 
         lblBackgroundInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/transaction-bacground.jpg"))); // NOI18N
         pnlTransactButtons.add(lblBackgroundInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 3, 495, 245));
@@ -157,7 +174,7 @@ public class Transactions extends javax.swing.JFrame {
 
         try {
             outstandingBalance = rsData.getDouble("OUTSTANDING_BALANCE");
-            JOptionPane.showMessageDialog(this.btnBalanceInquiry, "Your balance is " + outstandingBalance);
+            areaMessage.setText(areaMessage.getText() + cardNumber + ": " + outstandingBalance + "\n");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Kaching", JOptionPane.ERROR_MESSAGE);
         }
@@ -208,6 +225,8 @@ public class Transactions extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaMessage;
+    private javax.swing.JScrollPane balanceLog;
     private javax.swing.JButton btnBalanceInquiry;
     private javax.swing.JButton btnChangePin;
     private javax.swing.JButton btnDeposit;
@@ -216,9 +235,9 @@ public class Transactions extends javax.swing.JFrame {
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBackgroundButton;
     private javax.swing.JLabel lblBackgroundInput;
+    private javax.swing.JLabel lblLog;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoSecond;
-    private javax.swing.JLabel lblMessage;
     private javax.swing.JPanel pnlButton;
     private javax.swing.JPanel pnlTransactButtons;
     // End of variables declaration//GEN-END:variables
